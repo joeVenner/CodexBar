@@ -1,0 +1,16 @@
+Kimi K2 dashboard behavior proof
+Captured: 2026-07-05T16:31:12Z
+
+$ swift test --disable-sandbox --filter "MenuDescriptorKimiK2Tests|ProviderMetadataStatusLinkTests"
+◇ Test "kimi K2 menu exposes the usage dashboard action" started.
+◇ Test "kimi K2 metadata identifies the unofficial provider and its dashboard" started.
+✔ Test "kimi K2 metadata identifies the unofficial provider and its dashboard" passed after 0.012 seconds.
+✔ Suite ProviderMetadataStatusLinkTests passed after 0.013 seconds.
+✔ Test "kimi K2 menu exposes the usage dashboard action" passed after 0.050 seconds.
+✔ Suite MenuDescriptorKimiK2Tests passed after 0.051 seconds.
+✔ Test run with 3 tests in 2 suites passed after 0.051 seconds.
+
+$ curl -sSIL https://kimi-k2.ai/
+HTTP/2 308 
+location: https://kimrel.com/
+HTTP/2 200 
