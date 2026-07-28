@@ -259,7 +259,7 @@ enum PiSessionCostScanner {
                     "anthropic",
                     "moonshotai",
                     "moonshotai-cn",
-                ]))
+                ])))
     }
 
     private static func requestedWindowExpandsCache(
