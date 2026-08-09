@@ -785,6 +785,7 @@ enum CostUsagePricing {
     }
 
     private static func modelsDevProviderIDs(for provider: UsageProvider) -> [String] {
+        // Provider-specific by design: each supported provider maps to its own models.dev catalog IDs.
         switch provider {
         case .codex, .openai, .azureopenai:
             [self.codexModelsDevProviderID]

@@ -224,6 +224,7 @@ enum PiSessionCostScanner {
         cacheRoot: URL? = nil,
         calendar: Calendar = .current) -> CachedDailyReportResult?
     {
+        // Provider-specific by design: cached Pi reports are only supported for Codex and Claude.
         guard provider == .codex || provider == .claude else { return nil }
 
         let range = CostUsageScanner.CostUsageDayRange(since: since, until: until, calendar: calendar)
@@ -248,6 +249,7 @@ enum PiSessionCostScanner {
 
     private static func pricingContext(now: Date, cacheRoot: URL?) -> ModelsDevPricingContext {
         let modelsDevArtifact = ModelsDevCache.load(now: now, cacheRoot: cacheRoot).artifact
+        // Provider-specific by design: Pi pricing pulls models.dev catalogs only for the supported vendors.
         return ModelsDevPricingContext(
             catalog: modelsDevArtifact?.catalog,
             cacheRoot: cacheRoot,
@@ -835,6 +837,7 @@ enum PiSessionCostScanner {
         pricingDate: Date? = nil,
         pricingContext: ModelsDevPricingContext? = nil) -> Double?
     {
+        // Provider-specific by design: Pi cost calculation uses Codex/Claude-specific pricing normalizers.
         switch provider {
         case .codex:
             // Pi records input, cache reads, and cache writes as disjoint counts. Codex pricing
@@ -887,6 +890,7 @@ enum PiSessionCostScanner {
 
 extension PiSessionCostScanner {
     private static func mappedProvider(fromPiProvider provider: String) -> UsageProvider? {
+        // Provider-specific by design: Pi provider strings map to their respective UsageProvider values.
         switch provider.lowercased() {
         case "openai-codex":
             .codex
