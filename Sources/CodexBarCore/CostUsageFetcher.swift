@@ -532,6 +532,7 @@ public struct CostUsageFetcher: Sendable {
             var sessions: [CostUsageSessionBreakdown] = []
             var piDaily: CostUsageDailyReport?
             var staleSnapshotUpdatedAt: Date?
+            // Provider-specific by design: only Codex builds project and session breakdowns from its local cache.
             if provider == .codex {
                 let roots = CostUsageScanner.codexSessionsRoots(options: options.scanOptions)
                 let cache = CostUsageScanner.codexCache(
@@ -572,6 +573,7 @@ public struct CostUsageFetcher: Sendable {
                     options: options.piOptions,
                     checkCancellation: checkCancellation)
                 try checkCancellation()
+                // Provider-specific by design: only Codex stores the Pi-only report for project merge.
                 if provider == .codex {
                     piDaily = piReport
                 }
@@ -640,6 +642,7 @@ public struct CostUsageFetcher: Sendable {
         let unknownModelIDs = Set(daily.data.flatMap { entry in
             entry.modelBreakdowns?.compactMap { breakdown -> String? in
                 guard breakdown.costUSD == nil else { return nil }
+                // Provider-specific by design: only Codex filters out its own unattributed model names.
                 if provider == .codex,
                    CostUsagePricing.isCodexUnattributedModel(breakdown.modelName)
                 {
@@ -1451,6 +1454,7 @@ extension CostUsageFetcher {
         includePiSessions: Bool,
         codexHomePath: String?) -> Bool
     {
+        // Provider-specific by design: Pi session mirrors exist only for Google/xAI, Claude, and Codex.
         let scopedCodexHomePath = codexHomePath?.trimmingCharacters(in: .whitespacesAndNewlines)
         let shouldMergePiUsage = provider != .codex || scopedCodexHomePath?.isEmpty != false
         return includePiSessions
@@ -1504,6 +1508,7 @@ extension CostUsageFetcher {
         }
 
         #if os(macOS)
+        // Provider-specific by design: Cursor remote snapshots use its macOS dashboard session.
         if provider == .cursor {
             return try await self.loadCursorTokenSnapshot(
                 now: now,
