@@ -840,8 +840,8 @@ enum CostUsagePricing {
         catalog: ModelsDevCatalog? = nil,
         cacheRoot: URL? = nil) -> ModelsDevPricingLookup?
     {
-        let models = self.modelsDevModelIDs(for: provider, model: model)
-        for providerID in self.modelsDevProviderIDs(for: provider) {
+        let models = modelsDevModelIDs(for: provider, model: model)
+        for providerID in modelsDevProviderIDs(for: provider) {
             for modelID in models {
                 if let lookup = self.modelsDevLookup(
                     providerID: providerID,
@@ -854,34 +854,6 @@ enum CostUsagePricing {
             }
         }
         return nil
-    }
-
-    private static func modelsDevProviderIDs(for provider: UsageProvider) -> [String] {
-        switch provider {
-        case .codex, .openai, .azureopenai:
-            [self.codexModelsDevProviderID]
-        case .claude:
-            [self.claudeModelsDevProviderID]
-        case .kimi:
-            ["kimi-for-coding"]
-        case .moonshot:
-            ["moonshotai", "moonshotai-cn"]
-        default:
-            []
-        }
-    }
-
-    private static func modelsDevModelIDs(for provider: UsageProvider, model: String) -> [String] {
-        let normalized = model.trimmingCharacters(in: .whitespacesAndNewlines)
-        var models = [normalized]
-
-        if provider == .kimi,
-           normalized.lowercased() == "k3[1m]"
-        {
-            models.append("k3")
-        }
-
-        return models.filter { !$0.isEmpty }
     }
 
     private static func modelsDevLookup(
@@ -899,4 +871,32 @@ enum CostUsagePricing {
             modelID: model,
             cacheRoot: cacheRoot)
     }
+}
+
+private func modelsDevProviderIDs(for provider: UsageProvider) -> [String] {
+    switch provider {
+    case .codex, .openai, .azureopenai:
+        [CostUsagePricing.codexModelsDevProviderID]
+    case .claude:
+        [CostUsagePricing.claudeModelsDevProviderID]
+    case .kimi:
+        ["kimi-for-coding"]
+    case .moonshot:
+        ["moonshotai", "moonshotai-cn"]
+    default:
+        []
+    }
+}
+
+private func modelsDevModelIDs(for provider: UsageProvider, model: String) -> [String] {
+    let normalized = model.trimmingCharacters(in: .whitespacesAndNewlines)
+    var models = [normalized]
+
+    if provider == .kimi,
+       normalized.lowercased() == "k3[1m]"
+    {
+        models.append("k3")
+    }
+
+    return models.filter { !$0.isEmpty }
 }
