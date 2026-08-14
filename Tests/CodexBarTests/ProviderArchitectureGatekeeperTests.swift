@@ -1592,18 +1592,6 @@ struct ProviderArchitectureGatekeeperTests {
             expectedProviderIDs: ["codex"],
             reason: "This WidgetKit default or preview pins the established Codex sample provider."),
         SuppressedProviderReference(
-            path: "Sources/CodexBar/CostHistoryChartMenuView.swift",
-            line: 958,
-            anchor: "let projects = provider == .codex ? snapshot.projects : []",
-            expectedProviderIDs: ["codex"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
-            path: "Sources/CodexBar/MenuBarLayout.swift",
-            line: 270,
-            anchor: "ProviderDescriptorRegistry.descriptor(for: provider ?? .codex).presentation.primarySemanticWindow)",
-            expectedProviderIDs: ["codex"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
             path: "Sources/CodexBar/MenuCardView+ModelHelpers.swift",
             line: 208,
             anchor: "guard provider == .litellm,",
@@ -1620,30 +1608,6 @@ struct ProviderArchitectureGatekeeperTests {
             line: 1040,
             anchor: "if input.provider == .sub2api {",
             expectedProviderIDs: ["sub2api"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
-            path: "Sources/CodexBar/MenuCardView.swift",
-            line: 1158,
-            anchor: "guard let loginMethod = snapshot?.loginMethod(for: .kilo) else {",
-            expectedProviderIDs: ["kilo"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
-            path: "Sources/CodexBar/MenuCardView.swift",
-            line: 1262,
-            anchor: "if input.provider == .codex, let codexProjection = input.codexProjection {",
-            expectedProviderIDs: ["codex"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
-            path: "Sources/CodexBar/MenuCardView.swift",
-            line: 1413,
-            anchor: "var paceDetail = if input.provider == .kimi {",
-            expectedProviderIDs: ["kimi"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
-            path: "Sources/CodexBar/MenuCardView.swift",
-            line: 1503,
-            anchor: "if input.provider == .synthetic,",
-            expectedProviderIDs: ["synthetic"],
             reason: "Provider-specific by design: branch selects a single provider identity."),
         SuppressedProviderReference(
             path: "Sources/CodexBar/MenuOpenRefreshPlan.swift",
@@ -1724,12 +1688,6 @@ struct ProviderArchitectureGatekeeperTests {
             expectedProviderIDs: ["warp"],
             reason: "Provider-specific by design: branch selects a single provider identity."),
         SuppressedProviderReference(
-            path: "Sources/CodexBar/StatusItemController+HostedSubmenus.swift",
-            line: 441,
-            anchor: "projects: provider == .codex ? tokenSnapshot.projects : [],",
-            expectedProviderIDs: ["codex"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
             path: "Sources/CodexBar/UsageStore+OpenAIWeb.swift",
             line: 1572,
             anchor: "&& (lower.contains(\"about\") || lower.contains(\"openai\") || lower.contains(\"chatgpt\"))",
@@ -1802,18 +1760,6 @@ struct ProviderArchitectureGatekeeperTests {
             expectedProviderIDs: ["codex"],
             reason: "Provider-specific by design: branch selects a single provider identity."),
         SuppressedProviderReference(
-            path: "Sources/CodexBar/CostHistoryChartMenuView.swift",
-            line: 959,
-            anchor: "let sessions = provider == .codex ? snapshot.sessions : []",
-            expectedProviderIDs: ["codex"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
-            path: "Sources/CodexBar/MenuBarLayout.swift",
-            line: 273,
-            anchor: "ProviderDescriptorRegistry.descriptor(for: provider ?? .codex).presentation.secondarySemanticWindow)",
-            expectedProviderIDs: ["codex"],
-            reason: "Provider-specific by design: branch selects a single provider identity."),
-        SuppressedProviderReference(
             path: "Sources/CodexBar/SpendDashboardController.swift",
             line: 336,
             anchor: "modelProviderName: ProviderDescriptorRegistry.descriptor(for: .codex).metadata.displayName,",
@@ -1834,7 +1780,7 @@ struct ProviderArchitectureGatekeeperTests {
         SuppressedProviderReference(
             path: "Sources/CodexBar/StatusItemController+HostedSubmenus.swift",
             line: 442,
-            anchor: "sessions: provider == .codex ? tokenSnapshot.sessions : [],",
+            anchor: "projects: provider == .codex ? tokenSnapshot.projects : [],",
             expectedProviderIDs: ["codex"],
             reason: "Provider-specific by design: branch selects a single provider identity."),
         SuppressedProviderReference(
@@ -1871,6 +1817,12 @@ struct ProviderArchitectureGatekeeperTests {
             path: "Sources/CodexBarCore/CostUsageFetcher.swift",
             line: 866,
             anchor: "provider: .codex,",
+            expectedProviderIDs: ["codex"],
+            reason: "Provider-specific by design: branch selects a single provider identity."),
+        SuppressedProviderReference(
+            path: "Sources/CodexBar/StatusItemController+HostedSubmenus.swift",
+            line: 443,
+            anchor: "sessions: provider == .codex ? tokenSnapshot.sessions : [],",
             expectedProviderIDs: ["codex"],
             reason: "Provider-specific by design: branch selects a single provider identity."),
     ]
@@ -2110,22 +2062,6 @@ struct ProviderArchitectureGatekeeperTests {
             reason: "This exact shared renderer maps provider-owned presentation data into the generic UI model."),
         AllowedProviderConstruct(
             path: "Sources/CodexBar/MenuCardView.swift",
-            line: 638,
-            anchor: "guard self.model.provider == .doubao else { return nil }",
-            expectedProviderIDs: ["doubao"],
-            expectedReferenceCount: 1,
-            expectedReferenceFingerprint: ["doubao@0"],
-            reason: "This exact shared renderer maps provider-owned presentation data into the generic UI model."),
-        AllowedProviderConstruct(
-            path: "Sources/CodexBar/MenuCardView.swift",
-            line: 1040,
-            anchor: "if input.provider == .sub2api {",
-            expectedProviderIDs: ["sub2api"],
-            expectedReferenceCount: 1,
-            expectedReferenceFingerprint: ["sub2api@0"],
-            reason: "The sub2api menu card localizes and groups provider-owned usage detail rows for display."),
-        AllowedProviderConstruct(
-            path: "Sources/CodexBar/MenuCardView.swift",
             line: 1107,
             anchor: "if provider == .kiro,",
             expectedProviderIDs: ["kilo", "kiro"],
@@ -2169,16 +2105,9 @@ struct ProviderArchitectureGatekeeperTests {
             line: 1285,
             anchor: "if input.provider != .codex, let weekly = snapshot.secondary {",
             expectedProviderIDs: ["alibaba", "alibabatokenplan", "codex", "perplexity", "sub2api"],
-            expectedReferenceCount: 6,
-            expectedReferenceFingerprint: [
-                "codex@0",
-                "codex@12",
-                "alibaba@21",
-                "alibabatokenplan@21",
-                "perplexity@28",
-                "sub2api@28",
-            ],
-            reason: "This exact shared renderer maps provider-owned presentation data into the generic UI model."),
+            expectedReferenceCount: 5,
+            expectedReferenceFingerprint: ["codex@0", "alibaba@9", "alibabatokenplan@9", "perplexity@16", "sub2api@16"],
+            reason: "Provider-specific by design: cross-provider dispatch in shared code."),
         AllowedProviderConstruct(
             path: "Sources/CodexBar/MenuCardView.swift",
             line: 1324,
@@ -2603,14 +2532,7 @@ struct ProviderArchitectureGatekeeperTests {
             expectedReferenceCount: 2,
             expectedReferenceFingerprint: ["codex@0", "codex@9"],
             reason: "This exact app-runtime bridge coordinates provider-owned state through the shared controller."),
-        AllowedProviderConstruct(
-            path: "Sources/CodexBar/StatusItemController+HostedSubmenus.swift",
-            line: 442,
-            anchor: "projects: provider == .codex ? tokenSnapshot.projects : [],",
-            expectedProviderIDs: ["codex"],
-            expectedReferenceCount: 2,
-            expectedReferenceFingerprint: ["codex@0", "codex@1"],
-            reason: "This exact app-runtime bridge coordinates provider-owned state through the shared controller."),
+
         AllowedProviderConstruct(
             path: "Sources/CodexBar/StatusItemController+MemoryPressure.swift",
             line: 37,
