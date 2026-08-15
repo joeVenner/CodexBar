@@ -1450,6 +1450,8 @@ extension CostUsageFetcher {
         }
 
         return "v2:\(scopedFiles.count):\(progressHasher.finalize())"
+    }
+
     fileprivate static func shouldMergePiSessions(
         provider: UsageProvider,
         includePiSessions: Bool,
